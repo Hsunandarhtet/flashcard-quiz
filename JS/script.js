@@ -106,8 +106,8 @@ function generateQuiz(questions) {
         [questions[i], questions[j]] = [questions[j], questions[i]];
     }
 
-    // Limit the number of questions to 20
-    const selectedQuestions = questions.slice(0, 30);
+    // Limit the number of questions to 35
+    const selectedQuestions = questions.slice(0, 35);
 
     selectedQuestions.forEach((q, index) => {
         const questionElement = document.createElement("div");
