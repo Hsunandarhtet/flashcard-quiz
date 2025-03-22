@@ -5,7 +5,8 @@ document.getElementById("csvFileInput").addEventListener("change", function(even
     } else {
         fileList.innerHTML = "No files selected";
     }
-});    
+});
+    
 document.getElementById("csvFileInput").addEventListener("change", handleFiles, false);
 
 function handleFiles(event) {
@@ -64,37 +65,79 @@ options.add(randomAnswer);
 return Array.from(options).sort(() => Math.random() - 0.5);
 }
 
-function generateQuiz(questions) {
-const quizContainer = document.getElementById("quiz");
-quizContainer.innerHTML = "";
+// function generateQuiz(questions) {
+// const quizContainer = document.getElementById("quiz");
+// quizContainer.innerHTML = "";
 
-questions.forEach((q, index) => {
-const questionElement = document.createElement("div");
-questionElement.classList.add("flashcard");
-questionElement.innerHTML = `<p class="question">${index + 1}. ${q.japanese}</p>`;
+// questions.forEach((q, index) => {
+// const questionElement = document.createElement("div");
+// questionElement.classList.add("flashcard");
+// questionElement.innerHTML = `<p class="question">${index + 1}. ${q.japanese}</p>`;
 
-q.options.forEach(option => {
-    const label = document.createElement("label");
-    label.classList.add("option");
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = `question${index}`;
-    input.value = option;
+// q.options.forEach(option => {
+//     const label = document.createElement("label");
+//     label.classList.add("option");
+//     const input = document.createElement("input");
+//     input.type = "radio";
+//     input.name = `question${index}`;
+//     input.value = option;
     
-    label.appendChild(input);
-    label.appendChild(document.createTextNode(option));
-    questionElement.appendChild(label);
-});
+//     label.appendChild(input);
+//     label.appendChild(document.createTextNode(option));
+//     questionElement.appendChild(label);
+// });
 
-quizContainer.appendChild(questionElement);
-});
+// quizContainer.appendChild(questionElement);
+// });
 
-const submitButton = document.createElement("button");
-submitButton.innerText = "🚀 Submit";
-submitButton.classList.add("submit-btn");
-submitButton.addEventListener("click", () => checkAnswers(questions));
-quizContainer.appendChild(submitButton);
+// const submitButton = document.createElement("button");
+// submitButton.innerText = "🚀 Submit";
+// submitButton.classList.add("submit-btn");
+// submitButton.addEventListener("click", () => checkAnswers(questions));
+// quizContainer.appendChild(submitButton);
+// }
+function generateQuiz(questions) {
+    const quizContainer = document.getElementById("quiz");
+    quizContainer.innerHTML = "";
+
+    // Shuffle the questions using Fisher-Yates algorithm
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+
+    // Limit the number of questions to 20
+    const selectedQuestions = questions.slice(0, 30);
+
+    selectedQuestions.forEach((q, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.classList.add("flashcard");
+        questionElement.innerHTML = `<p class="question">${index + 1}. ${q.japanese}</p>`;
+
+        q.options.forEach(option => {
+            const label = document.createElement("label");
+            label.classList.add("option");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = `question${index}`;
+            input.value = option;
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(option));
+            questionElement.appendChild(label);
+        });
+
+        quizContainer.appendChild(questionElement);
+    });
+
+    const submitButton = document.createElement("button");
+    submitButton.innerText = "🚀 Submit";
+    submitButton.classList.add("submit-btn");
+    submitButton.addEventListener("click", () => checkAnswers(selectedQuestions));
+    quizContainer.appendChild(submitButton);
 }
+
+
 
 function checkAnswers(questions) {
 let score = 0;
