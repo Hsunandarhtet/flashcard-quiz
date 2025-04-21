@@ -115,3 +115,36 @@ font-weight: bold;
 .submit-btn:active {
     transform: scale(0.95);
 }
+.download-btn {
+    text-decoration: none;
+    display: inline-block;
+    background: linear-gradient(135deg, #8c4cdf, #b17ef5);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .download-btn::after {
+    content: "⬇";
+    position: absolute;
+    right: 18px;
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.3s ease;
+  }
+
+  .download-btn:hover::after {
+    right: 14px;
+  }
