@@ -29,7 +29,12 @@ reader.onload = function (e) {
         allQuestions.forEach(q => {
             q.options = generateOptions(q.meaning, allMeanings);
         });
-        generateQuiz(allQuestions);
+        const isLearningMode = document.getElementById("learningCheckbox").checked;
+            if (isLearningMode) {
+                generateQuizLearn(allQuestions);
+            } else {
+                generateQuiz(allQuestions);
+            }
     }
 };
 
@@ -65,37 +70,20 @@ options.add(randomAnswer);
 return Array.from(options).sort(() => Math.random() - 0.5);
 }
 
-// function generateQuiz(questions) {
-// const quizContainer = document.getElementById("quiz");
-// quizContainer.innerHTML = "";
+function generateQuizLearn(questions) {
+    const quizContainer = document.getElementById("quiz");
+    quizContainer.innerHTML = "";
 
-// questions.forEach((q, index) => {
-// const questionElement = document.createElement("div");
-// questionElement.classList.add("flashcard");
-// questionElement.innerHTML = `<p class="question">${index + 1}. ${q.japanese}</p>`;
-
-// q.options.forEach(option => {
-//     const label = document.createElement("label");
-//     label.classList.add("option");
-//     const input = document.createElement("input");
-//     input.type = "radio";
-//     input.name = `question${index}`;
-//     input.value = option;
-    
-//     label.appendChild(input);
-//     label.appendChild(document.createTextNode(option));
-//     questionElement.appendChild(label);
-// });
-
-// quizContainer.appendChild(questionElement);
-// });
-
-// const submitButton = document.createElement("button");
-// submitButton.innerText = "🚀 Submit";
-// submitButton.classList.add("submit-btn");
-// submitButton.addEventListener("click", () => checkAnswers(questions));
-// quizContainer.appendChild(submitButton);
-// }
+    questions.forEach((q, index) => {
+        const questionElement = document.createElement("div");
+        questionElement.classList.add("flashcard");
+        questionElement.innerHTML = `
+            <p class="question">${index + 1}. ${q.japanese}</p>
+            <p class="answer-feedback">💡 ${q.meaning}</p>
+        `;
+        quizContainer.appendChild(questionElement);
+    });
+}
 function generateQuiz(questions) {
     const quizContainer = document.getElementById("quiz");
     quizContainer.innerHTML = "";

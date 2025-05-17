@@ -38,6 +38,12 @@ body {
     text-align: center;
     margin: 20px auto;
 }
+.flashcard-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 .question {
     font-size: 20px;
     margin-bottom: 15px;
@@ -142,9 +148,31 @@ font-weight: bold;
     font-size: 20px;
     top: 50%;
     transform: translateY(-50%);
-    transition: left 0.3s ease;
+    transition: right 0.3s ease;
   }
 
   .download-btn:hover::after {
     right: 14px;
   }
+
+.checkbox-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-width: 160px;
+}
+
+.checkbox-label {
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    transform: scale(1.5);
+    accent-color: #8c4cdf;
+}
